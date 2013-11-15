@@ -50,6 +50,39 @@ Purpose   : contains basic data structures and objects for implementation of
 #define PORT_SNMP_TCP		161	//TCP
 #define PORT_SNMP_UDP		161	//UDP
 
+#ifdef TRANSPORT_VIA_TCP
+#define DISCARD_PORT 		PORT_DISCARD_TCP
+#define FTP_DATA_PORT 		PORT_FTP_DATA
+#define FTP_PORT		PORT_FTP
+#define SSH_PORT		PORT_SSH_TCP
+#define TELNET_PORT		PORT_TELNET
+#define SMTP_PORT		PORT_SMTP
+#define NAMESERVER_PORT		PORT_NAMESERVER
+#define WHOIS_PORT		PORT_WHOIS
+#define DNS_PORT		PORT_DNS_TCP
+#define HTTP_PORT		PORT_HTTP_TCP
+#define KERBEROS_PORT		PORT_KERBEROS_TCP
+#define POPv2_PORT		PORT_POPv2_TCP
+#define POPv3_PORT		PORT_POPv3_TCP
+#define IMAPv2_PORT		PORT_IMAPv2_TCP
+#define SNMP_PORT		PORT_SNMP_TCP
+#endif
+#ifdef TRANSPORT_VIA_UDP
+#define DISCARD_PORT		PORT_DISCARD_UDP
+#define SSH_PORT		PORT_SSH_UDP
+#define DNS_PORT		PORT_DNS_UDP
+#define HTTP_PORT		PORT_HTTP_UDP
+#define KERBEROS_PORT		PORT_KERBEROS_UDP
+#define POPv2_PORT		PORT_POPv2_UDP
+#define POPv3_PORT		PORT_POPv3_UDP
+#define IMAPv2_PORT		PORT_IMAPv2_UDP
+#define SNMP_PORT		PORT_SNMP_UDP
+#endif
+
+/* if you are angry at the fact that TCP port == UDP port, 
+ * remember, this is lousy implementation.
+ */
+
 typedef enum TransportProtocols TLP; //transport layer protocols
 enum TransportProtocols{
   TLP_UNINITED = 0x00, //uninitialized
