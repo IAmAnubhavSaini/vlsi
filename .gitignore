@@ -1,5 +1,5 @@
 *.o
 *.mine
 *.local
-
+*~
 *.etc

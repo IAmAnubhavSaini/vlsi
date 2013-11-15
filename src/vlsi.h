@@ -24,6 +24,8 @@ Purpose   : contains basic data structures and objects for implementation of
 #ifndef SERVC_VLSI_H
 #define SERVC_VLSI_H
 
+#include<string.h>
+
 //port # taken from /etc/services
 #define PORT_DISCARD_TCP	9	//TCP
 #define PORT_DISCARD_UDP	9	//UDP
@@ -100,4 +102,37 @@ enum NetworkProtocols{
 //  NLP_PARP //proxy-ARP
 };
 
-#endif
+typedef struct IPAddress IP;
+struct IPAddress{
+  unsigned int 	A:8, B:8, C:8, D:8;
+  unsigned int  Mask; /* subnet what else */
+};
+#define SANITIZE_IP_PART(x) (if((x)>255)x = 255;)
+
+/* Okay I am not that stupid 
+typedef struct PortNumber PortNumber;
+struct PortNumber{
+  int	Port;
+};
+*/
+typedef unsigned int Port;
+
+typedef struct MACAddress MAC;
+struct MACAddress{
+  unsigned int  A:8, B:8, C:8, D:8, E:8, F:8; //hex please
+  
+};
+
+typedef struct TransportAddress TransportAddress;
+struct TransportAddress{
+  IP 	SourceIp, DestinationIp;
+  Port 	SourcePort, DestinationPort;
+  MAC 	SourceMac, DestinationMac;
+};
+
+typedef void * Payload;
+
+void 	IP_Set( IP * ip_out, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int mask );
+IP * 	IP_Create_New( unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int mask );
+int 	IsMaskOkay( unsigned int mask );
+#endif /* VLSI_H */
