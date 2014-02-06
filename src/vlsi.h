@@ -1,5 +1,5 @@
 /*
-   Copyright 2013 Anubhav Saini
+   Copyright 2013,2014 Anubhav Saini
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -135,4 +135,35 @@ typedef void * Payload;
 void 	IP_Set( IP * ip_out, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int mask );
 IP * 	IP_Create_New( unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int mask );
 int 	IsMaskOkay( unsigned int mask );
+
+
+
+/* Routing Information Protocol RIP */
+struct RIPacketV1{
+  unsigned int command:8;
+  unsigned int version:8;
+  unsigned int reserved:16;
+  unsigned int family:16;
+  unsigned int zeroes1:16;
+  unsigned int network_address:32;
+  unsigned int zeroes2:32;
+  unsigned int zeroes3:32;
+  unsigned int distance:32;
+};
+struct RIPacketV2{
+  unsigned int command:8;
+  unsigned int version:8;
+  unsigned int reserved:16;
+  unsigned int family:16;
+  unsigned int route_tag:16;
+  unsigned int network_address:32;
+  unsigned int subnet_mask:32;
+  unsigned int next_hop_address:32;
+  unsigned int distance:32;
+};
+
+struct rip{
+  void * pkt; /* whether RIPacketV1 or RIPacketV2 */
+  unsigned int version:2; /* version 01 or version 10 */
+};
 #endif /* VLSI_H */
